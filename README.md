@@ -71,7 +71,7 @@ lib/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/MediTrack.git
+   git clone https://github.com/bini34/MediTrack
    cd MediTrack
 
 2. **Install dependencies:**
