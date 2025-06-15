@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../widget/form_field.dart';
+import '../../domain/useCase/sign_in_usecase.dart';
+import '../../../../core/providers/stay_signed_in_provider.dart';
 
-class SigninPage extends StatefulWidget {
+class SigninPage extends ConsumerWidget {
   const SigninPage({super.key});
 
   @override
-  State<SigninPage> createState() => _SignupPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final staySignedIn = ref.watch(staySignedInProvider);
 
-class _SignupPageState extends State<SigninPage> {
-  bool _isPasswordVisible = false;
-  bool _staySignedIn = false;
+     void signin() async {
+      final email = emailController.text.trim();
+      final password = passwordController.text.trim();
 
-  @override
-  Widget build(BuildContext context) {
+      if (email.isEmpty || password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please fill in all fields')),
+        );
+        return;
+      }
+       
+      
+    }
+
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -31,34 +43,23 @@ class _SignupPageState extends State<SigninPage> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 28),
-              CustomFormField(label: 'Email', hintText: 'jane.doe@gmail.com'),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
               const SizedBox(height: 16),
-              CustomFormField(
-                label: 'Password',
-                hintText: 'Enter your password',
-                obscureText: !_isPasswordVisible,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                ),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
               ),
               Row(
                 children: [
                   Checkbox(
-                    value: _staySignedIn,
+                    value: staySignedIn,
                     onChanged: (value) {
-                      setState(() {
-                        _staySignedIn = value ?? false;
-                      });
+                      ref.read(staySignedInProvider.notifier).state =
+                          value ?? false;
                     },
                     activeColor: Theme.of(context).colorScheme.primary,
                     checkColor: Theme.of(context).colorScheme.onPrimary,
@@ -85,87 +86,9 @@ class _SignupPageState extends State<SigninPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: signin,
                   child: const Text('Sign in'),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.2),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'or',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.2),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              OutlinedButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 8),
-                    Text(
-                      'Continue with Google',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              OutlinedButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 8),
-                    Text(
-                      'Continue with Apple',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not registered yet? ',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  TextButton(
-                    onPressed: () => context.go('/signup'),
-                    child: Text(
-                      'Create account',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ],
           ),

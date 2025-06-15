@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../widget/form_field.dart';
+import '../widgets/form_field.dart';
 
 class SignupEmailPage extends StatefulWidget {
   const SignupEmailPage({super.key});

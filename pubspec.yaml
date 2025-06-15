@@ -30,23 +30,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  go_router: ^15.0.0
-
-  # fetch data from api
-  dio: ^5.8.0+1
-  # bloc state management
-  flutter_bloc: ^9.1.0
-  # json annotation
-  # json_annotation: ^5.1.1
-  #being able to comapre objects
+  cupertino_icons: ^1.0.6
+  flutter_riverpod: ^2.5.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  firebase_core: ^3.14.0
+  cloud_firestore: ^5.6.9
+  firebase_auth: ^5.6.0
+  google_maps_flutter: ^2.6.1
+  flutter_local_notifications: ^19.2.1
+  go_router: ^15.2.0
+  path_provider: ^2.1.3
+  geolocator: ^14.0.1
+  json_annotation: ^4.9.0
   equatable: ^2.0.5
-  # handel sucess/error states from data sources
+  flutter_svg: ^2.0.9
   dartz: ^0.10.1
-  flutter_native_splash: ^2.4.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.15
+  json_serializable: ^6.9.0
+  hive_generator: ^2.0.1
+  analyzer: ^6.4.1
+
 
 flutter_launcher_icons:
   android: "ic_launcher"
@@ -55,18 +64,15 @@ flutter_launcher_icons:
   min_sdk_android: 21
   remove_alpha_ios: true
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^5.0.0
-  flutter_svg: ^2.0.9 
-  flutter_launcher_icons: ^0.13.1  
+
+# The "flutter_lints" package below contains a set of recommended lints to
+# encourage good coding practices. The lint set provided by the package is
+# activated in the `analysis_options.yaml` file located at the root of your
+# package. See that file for information about deactivating specific lint
+# rules and activating additional ones.
+flutter_svg: ^2.0.9 
+#flutter_launcher_icons: ^0.14.3  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -81,6 +87,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/icon/splash.png
     - assets/icon/welcoming.svg
   # - assets/images/doctors/
   #   - images/a_dot_ham.jpeg
